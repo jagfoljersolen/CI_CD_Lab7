@@ -1,21 +1,24 @@
 name: First CI
 on: [push]
+
 jobs:
-    build:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v4
-        - uses: actions/setup-dotnet@v3
-          with:
-            dotnet-version: '8.0.x'
-        - run: dotnet restore
-        - run: dotnet build
-    test:
-        steps:
-          - name: trying to run
-            run: dotnet run
-      
-  
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+      - run: dotnet restore
+      - run: dotnet build
 
-
-
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+      - name: run app
+        run: dotnet run
