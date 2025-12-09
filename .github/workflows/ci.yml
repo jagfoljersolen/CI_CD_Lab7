@@ -25,6 +25,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: app.tar
-      - run: tar xf app.tar/app.tar
+          name: app
+      - run: ls -R .
+      - run: tar xf app.tar
       - run: ./app/app
