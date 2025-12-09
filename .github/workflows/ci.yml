@@ -1,6 +1,6 @@
 name: First CI
 on: [push]
-  jobs:
+jobs:
     build:
       runs-on: ubuntu-latest
       steps:
@@ -14,3 +14,4 @@ on: [push]
         steps:
           - name: trying to run
             run: dotnet run
+  
