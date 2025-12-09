@@ -10,10 +10,11 @@ jobs:
             dotnet-version: '8.0.x'
         - run: dotnet restore
         - run: dotnet build
-      test:
+    test:
         steps:
           - name: trying to run
             run: dotnet run
+      
   
 
 
