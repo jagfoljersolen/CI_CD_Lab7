@@ -6,9 +6,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: build using gcc
-        run: gcc main.c -o program
+        run: gcc -Wall -Werror main.c -o program
       - name: Archive production artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: program
           path: program
