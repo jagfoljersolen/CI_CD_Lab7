@@ -13,5 +13,15 @@ jobs:
         with:
           dotnet-version: '8.0.x'
       - run: dotnet restore
+      - name: Publish ${{ matrix.rid }}
       - run: dotnet publish -o app -r ${{ matrix.rid }} --sc
             /p:PublishSingleFile=true
+      - name: Archive ${{ matrix.id }}
+        run: tar cf app-${{ matrix.rid }}.tar app-${{ matrix.rid }}/
+
+      - name: Upload artifact ${{ matrix.rid }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-${{ matrix.rid }}
+          path: app-${{ matrix.id }}.tar
+      
