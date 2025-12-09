@@ -7,6 +7,7 @@ jobs:
     strategy:
       matrix:
         rid: ["win-x64", "linux-x64"]
+
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v3
@@ -14,14 +15,11 @@ jobs:
           dotnet-version: '8.0.x'
       - run: dotnet restore
       - name: Publish ${{ matrix.rid }}
-      - run: dotnet publish -o app -r ${{ matrix.rid }} --sc
-            /p:PublishSingleFile=true
-      - name: Archive ${{ matrix.id }}
+        run: dotnet publish -c Release -o app-${{ matrix.rid }} -r ${{ matrix.rid }} --sc /p:PublishSingleFile=true
+      - name: Archive ${{ matrix.rid }}
         run: tar cf app-${{ matrix.rid }}.tar app-${{ matrix.rid }}/
-
       - name: Upload artifact ${{ matrix.rid }}
         uses: actions/upload-artifact@v4
         with:
           name: app-${{ matrix.rid }}
-          path: app-${{ matrix.id }}.tar
-      
+          path: app-${{ matrix.rid }}.tar
